@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Page 3</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- فيديو تلقائي -->
+    <video id="videoPlayer3" width="800" height="600" autoplay controls onended="handleVideo3Ended()">
+        <source src="C:\my studio\embz outro.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        // عند انتهاء الفيديو في page3.html
+        function handleVideo3Ended() {
+            // توجيه المستخدم إلى page4.html
+            window.location.href = 'page4.html';
+        }
+    </script>
+
+</body>
+</html>

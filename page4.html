@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 4</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        #countdown {
+            color: red;
+            font-size: 36px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #overlayTextTop {
+            color: white;
+            font-size: 24px;
+            position: fixed;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="countdown"></div>
+    <div id="overlayTextTop">سيتم حذف ملفات جذر النظام بعد</div>
+
+    <script>
+        // تعيين مدة العد التنازلي بالثواني (3 ساعات)
+        var countdownDuration = 3 * 60 * 60;
+
+        // عداد تنازلي
+        function startCountdown() {
+            var countdownElement = document.getElementById('countdown');
+            var overlayTextTopElement = document.getElementById('overlayTextTop');
+
+            var countdownInterval = setInterval(function() {
+                var hours = Math.floor(countdownDuration / 3600);
+                var minutes = Math.floor((countdownDuration % 3600) / 60);
+                var seconds = countdownDuration % 60;
+
+                countdownElement.innerHTML = formatTime(hours) + ':' + formatTime(minutes) + ':' + formatTime(seconds);
+                overlayTextTopElement.style.display = 'block'; // عرض النص الأول فوق العد التنازلي
+                countdownDuration--;
+
+                if (countdownDuration < 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.innerHTML = 'انتهى العد التنازلي!';
+                    overlayTextTopElement.style.display = 'none'; // إخفاء النص الأول بعد انتهاء العد التنازلي
+                }
+            }, 1000);
+        }
+
+        // بدء العد التنازلي عند تحميل الصفحة
+        window.onload = function() {
+            startCountdown();
+        }
+
+        // تنسيق الوقت ليكون دائماً برقمين
+        function formatTime(time) {
+            return time < 10 ? '0' + time : time;
+        }
+    </script>
+
+</body>
+</html>

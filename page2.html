@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown and Questions</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        #countdown {
+            color: red;
+            font-size: 36px;
+            position: fixed;
+            top: 10px; /* تحديد المسافة من الأعلى */
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+
+        #question {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: right;
+            font-size: 24px; /* تحديد حجم الخط */
+            line-height: 1.5; /* تحديد المسافة بين الأسطر */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- عداد تنازلي -->
+    <div id="countdown"></div>
+
+    <!-- السؤال -->
+    <div id="question">
+        <p>مات وترك: ابن ابن وبنت</p>
+        <p>ماذا يرث احمد في هذه الحالة؟</p>
+        <ul>
+            <li><input type="radio" name="answer" value="المحل"> المحل</li>
+            <li><input type="radio" name="answer" value="الشقة"> الشقة</li>
+            <li><input type="radio" name="answer" value="الفول_و_السمن_البلدي"> الفول والسمن البلدي</li>
+        </ul>
+        <button onclick="showNextVideo()">إرسال الإجابة</button>
+    </div>
+
+    <script>
+        // تعيين مدة العد التنازلي بالثواني
+        var countdownDuration = 30;
+
+        // عداد تنازلي
+        function startCountdown() {
+            var countdownElement = document.getElementById('countdown');
+            var countdownInterval = setInterval(function() {
+                countdownElement.innerHTML = 'العد التنازلي: ' + countdownDuration + ' ثانية';
+                countdownDuration--;
+
+                if (countdownDuration < 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.innerHTML = 'انتهى العد التنازلي!';
+                }
+            }, 1000);
+        }
+
+        // بدء العد التنازلي عند تحميل الصفحة
+        window.onload = function() {
+            startCountdown();
+        }
+
+        // عرض الفيديو التالي بعد الإجابة على السؤال
+        function showNextVideo() {
+            var answer = document.querySelector('input[name="answer"]:checked').value;
+            alert('تم اختيار الإجابة: ' + answer);
+
+            // قم بتغيير اسم ملف الفيديو التالي
+            var nextVideoSource = 'C:\my studio\embz outro.mp4';
+
+            // عرض الفيديو التالي
+            var nextVideo = document.createElement('video');
+            nextVideo.width = 800;
+            nextVideo.height = 600;
+            nextVideo.controls = true;
+
+            var source = document.createElement('source');
+            source.src = nextVideoSource;
+            source.type = 'video/mp4';
+
+            nextVideo.appendChild(source);
+            document.body.appendChild(nextVideo);
+
+            // إخفاء السؤال وإعادة تعيين العد التنازلي
+            document.getElementById('question').style.display = 'none';
+            countdownDuration = 120;
+            startCountdown();
+            window.location.href = 'page3.html';
+        }
+    </script>
+
+</body>
+</html>
